@@ -38,9 +38,4 @@ public class Item {
         return description;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Item ID: %s\nItem name: %s\nItem cost: %.2f SEK\nVAT: %.0f%%\nItem description: %s",
-                id, name, price, vat, description);
-    }
 }

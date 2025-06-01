@@ -33,16 +33,19 @@ public class View {
     }
 
     private void tryRegister(String itemId) {
-        try {
-            Item item = controller.registerItem(itemId);
-            System.out.println("\n>>> Artikel tillagd:");
-            System.out.println(item);
-        } catch (InventoryDatabaseException e) {
-            System.out.println("[FEL] Ett tekniskt fel inträffade. Försök igen senare.");
-        } catch (ItemNotFoundException e) {
-            System.out.println("[INFO] Artikel finns inte: " + e.getItemId());
-        }
+    Item item = null; // Gör item tillgänglig överallt i metoden
+    try {
+        item = controller.registerItem(itemId);
+        System.out.println("\n>>> Artikel tillagd:");
+        System.out.printf("Artikel tillagd: %s (%.2f SEK, %.2f%% moms)\n",
+            item.getName(), item.getPrice(), item.getVat() );
+    } catch (InventoryDatabaseException e) {
+        System.out.println("[FEL] Ett tekniskt fel inträffade. Försök igen senare.");
+    } catch (ItemNotFoundException e) {
+        System.out.println("[INFO] Artikel finns inte: " + e.getItemId());
     }
+}
+
 
     public String generateReceipt() {
         StringBuilder receipt = new StringBuilder();
