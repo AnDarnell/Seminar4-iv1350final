@@ -37,7 +37,7 @@ public class Controller {
         sale.addRevenueObserver(obs);
     }
 
-    // === Data access for View ===
+    // Data access for View
 
     public List<SoldItem> getSoldItems() {
         return sale.getItems();

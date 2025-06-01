@@ -16,6 +16,10 @@ public class SoldItem {
     public Item getItem() {
         return item;
     }
+    
+    public int getQuantity() {
+    return quantity;
+    }
 
     public double getTotalPrice() {
         return item.getPrice() * quantity * (1 + item.getVat() / 100);
@@ -23,11 +27,5 @@ public class SoldItem {
 
     public double getVAT() {
         return item.getPrice() * quantity * (item.getVat() / 100);
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%s  %d x %.2f  %.2f SEK",
-            item.getName(), quantity, item.getPrice(), quantity * item.getPrice());
     }
 }

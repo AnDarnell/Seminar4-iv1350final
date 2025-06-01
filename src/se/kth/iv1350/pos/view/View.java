@@ -27,7 +27,7 @@ public class View {
         tryRegister("unknownItem");
         tryRegister("bread");
 
-        controller.completeSale(); // triggers notifyObservers()
+        controller.completeSale(); 
 
         System.out.println(generateReceipt());
     }
@@ -38,7 +38,7 @@ public class View {
             System.out.println("\n>>> Artikel tillagd:");
             System.out.println(item);
         } catch (InventoryDatabaseException e) {
-            System.out.println("[FEL] Tekniskt fel: " + e.getMessage());
+            System.out.println("[FEL] Ett tekniskt fel inträffade. Försök igen senare.");
         } catch (ItemNotFoundException e) {
             System.out.println("[INFO] Artikel finns inte: " + e.getItemId());
         }
@@ -53,8 +53,14 @@ public class View {
         receipt.append("Time of Sale: ").append(timeOfSale.format(formatter)).append("\n\n");
 
         List<SoldItem> items = controller.getSoldItems();
-        for (SoldItem item : items) {
-            receipt.append(item.toString()).append("\n");
+        for (SoldItem soldItem : items) {
+            Item item = soldItem.getItem();
+            int quantity = soldItem.getQuantity();
+            double price = item.getPrice();
+            double totalItemPrice = quantity * price;
+
+            receipt.append(String.format("%s  %d x %.2f  %.2f SEK\n",
+                    item.getName(), quantity, price, totalItemPrice));
         }
 
         double total = controller.getTotal();
